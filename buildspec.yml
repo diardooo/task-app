@@ -12,7 +12,7 @@ phases:
       - echo Logging in to Amazon ECR...
       - aws --version
       - eval $(aws ecr get-login --region us-east-1 --no-include-email | sed 's|https://||')
-      - REPOSITORY_URI=544302361567.dkr.ecr.us-east-1.amazonaws.com/projektask-app
+      - REPOSITORY_URI=377074251487.dkr.ecr.us-east-1.amazonaws.com/task-app-ecr
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=${COMMIT_HASH:=latest}
   build:
@@ -27,6 +27,6 @@ phases:
       # - docker push $REPOSITORY_URI:$IMAGE_TAG
       - docker push $REPOSITORY_URI:latest
       - echo Writing image definitions file...
-      - printf '[{"name":"taskapp-container","imageUri":"%s"}]' $REPOSITORY_URI:latest > imagedefinitions.json
+      - printf '[{"name":"task-app-container","imageUri":"%s"}]' $REPOSITORY_URI:latest > imagedefinitions.json
 artifacts:
   files: imagedefinitions.json
